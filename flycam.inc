@@ -35,6 +35,8 @@ public OnPlayerCameraUpdate(playerid, Float:oldx, Float:oldy, Float:oldz, olddir
 #define MOVE_BACK_LEFT          (7)
 #define MOVE_BACK_RIGHT         (8)
 
+#define FlyCam_DefaultMovementSpeed	(100.0)
+
 enum e_PLAYER_FLY_MODE {
 				flyType,
 				flyObject,
@@ -54,7 +56,7 @@ public OnPlayerConnect(playerid) {
     g_FlyMode[playerid][flyKeys][0] = 0;
     g_FlyMode[playerid][flyKeys][1] = 0;
     g_FlyMode[playerid][flyTick] = 0;
-    g_FlyMode[playerid][flyMovementSpeed] = 100.0;
+    g_FlyMode[playerid][flyMovementSpeed] = FlyCam::DefaultMovementSpeed;
 
 	#if defined Cam_OnPlayerConnect
 		return Cam_OnPlayerConnect(playerid);
