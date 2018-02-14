@@ -26,6 +26,8 @@ public OnPlayerCameraUpdate(playerid, Float:oldx, Float:oldy, Float:oldz, olddir
 #endif
 #define _INCLUDE_FLYCAM_
 
+#define FlyCam:: FlyCam_
+
 #include <streamer>
 
 #define MOVE_FORWARD    		(1)
@@ -36,6 +38,8 @@ public OnPlayerCameraUpdate(playerid, Float:oldx, Float:oldy, Float:oldz, olddir
 #define MOVE_FORWARD_RIGHT      (6)
 #define MOVE_BACK_LEFT          (7)
 #define MOVE_BACK_RIGHT         (8)
+
+#define FlyCam_DefaultMovementSpeed	(100.0)
 
 enum e_PLAYER_FLY_MODE {
 				flyType,
@@ -56,7 +60,7 @@ public OnPlayerConnect(playerid) {
     g_FlyMode[playerid][flyKeys][0] = 0;
     g_FlyMode[playerid][flyKeys][1] = 0;
     g_FlyMode[playerid][flyTick] = 0;
-    g_FlyMode[playerid][flyMovementSpeed] = 100.0;
+    g_FlyMode[playerid][flyMovementSpeed] = FlyCam::DefaultMovementSpeed;
 
 	#if defined Cam_OnPlayerConnect
 		return Cam_OnPlayerConnect(playerid);
@@ -236,7 +240,7 @@ public OnPlayerUpdate(playerid) {
 	forward Cam_OnPlayerUpdate(playerid);
 #endif
 
-stock SetPlayerCamera(playerid, type = 1) {
+stock FlyCam::SetPlayerCamera(playerid, type = 1) {
 	switch (type) {
 		case 1,2: {
 			TogglePlayerSpectating(playerid, true);
@@ -277,14 +281,18 @@ stock SetPlayerCamera(playerid, type = 1) {
 	}
 }
 
-stock SetPlayerCameraSpeed(playerid, Float:speed) {
+stock FlyCam::SetPlayerCameraSpeed(playerid, Float:speed) {
     g_FlyMode[playerid][flyMovementSpeed] = speed;
 
 	return true;
 }
 
-stock Float:GetPlayerCameraSpeed(playerid) {
+stock Float:FlyCam::GetPlayerCameraSpeed(playerid) {
     return g_FlyMode[playerid][flyMovementSpeed];
+}
+
+stock FlyCam::GetPlayerCameraMode(playerid) {
+	return g_FlyMode[playerid][flyType];
 }
 
 forward OnPlayerCameraUpdate(playerid, Float:oldx, Float:oldy, Float:oldz, olddir, Float:newx, Float:newy, Float:newz, newdir);
