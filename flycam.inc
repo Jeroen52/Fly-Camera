@@ -22,6 +22,8 @@ CALLBACKS:
 public OnPlayerCameraUpdate(playerid, Float:oldx, Float:oldy, Float:oldz, olddir, Float:newx, Float:newy, Float:newz, newdir)
 */
 
+#define FlyCam:: FlyCam_
+
 #include <streamer>
 
 #define MOVE_FORWARD    		(1)
@@ -231,7 +233,7 @@ public OnPlayerUpdate(playerid) {
 	forward Cam_OnPlayerUpdate(playerid);
 #endif
 
-stock SetPlayerCamera(playerid, type = 1) {
+stock FlyCam::SetPlayerCamera(playerid, type = 1) {
 	switch (type) {
 		case 1,2: {
 			TogglePlayerSpectating(playerid, true);
@@ -272,14 +274,18 @@ stock SetPlayerCamera(playerid, type = 1) {
 	}
 }
 
-stock SetPlayerCameraSpeed(playerid, Float:speed) {
+stock FlyCam::SetPlayerCameraSpeed(playerid, Float:speed) {
     g_FlyMode[playerid][flyMovementSpeed] = speed;
 
 	return true;
 }
 
-stock Float:GetPlayerCameraSpeed(playerid) {
+stock Float:FlyCam::GetPlayerCameraSpeed(playerid) {
     return g_FlyMode[playerid][flyMovementSpeed];
+}
+
+stock FlyCam::GetPlayerCameraMode(playerid) {
+	return g_FlyMode[playerid][flyType];
 }
 
 forward OnPlayerCameraUpdate(playerid, Float:oldx, Float:oldy, Float:oldz, olddir, Float:newx, Float:newy, Float:newz, newdir);
