@@ -269,7 +269,9 @@ stock FlyCam::SetPlayerCamera(playerid, type = 1) {
 			GetPlayerCameraPos(playerid, CP[0], CP[1], CP[2]);
 
 			TogglePlayerSpectating(playerid, false);
-			SpawnPlayer(playerid);
+			#if !defined _FLYCAM_NO_SPAWNPLAYER
+				SpawnPlayer(playerid);
+			#endif
 
 			SetPlayerPos(playerid, CP[0], CP[1], CP[2]);
 
